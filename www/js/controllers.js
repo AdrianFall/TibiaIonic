@@ -33,6 +33,7 @@ angular.module('app.controllers', [])
 .controller('registerCtrl', function($scope, $state, $rootScope, RegistrationService, $ionicLoading) {
   $scope.register = function() {
     $scope.error = undefined;
+    $rootScope.message = undefined;
     if ($scope.email)
       $scope.email = $scope.email.charAt(0).toLowerCase() + $scope.email.slice(1);
     RegistrationService.Register($scope.email, $scope.password, $scope.confirmPassword, function(response) {
@@ -106,6 +107,7 @@ angular.module('app.controllers', [])
 
   $scope.resendActivationMail = function() {
     $scope.error = undefined;
+    $rootScope.message = undefined;
     if ($scope.email)
       $scope.email = $scope.email.charAt(0).toLowerCase() + $scope.email.slice(1);
     AccountActivationService.ResendActivationMail($scope.email, function(response) {
