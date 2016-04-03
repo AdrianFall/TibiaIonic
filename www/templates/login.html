@@ -1,0 +1,22 @@
+<ion-view title="Login" id="page6">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <form ng-controller="loginCtrl" ng-submit="login()" class="list">
+            <ion-list>
+                <label class="item item-input">
+                    <span class="input-label">Email</span>
+                    <input type="text" id="email" ng-model="email" placeholder="">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Password</span>
+                    <input type="password" id="password" ng-model="password" placeholder="">
+                </label>
+            </ion-list>
+            <div ng-show="error" class="assertive">{{error}}</div>
+            <div class="spacer" style="height: 40px;"></div>
+            <button id="login-button3" class="button button-stable  button-block">Log in</button>
+            <a ui-sref="tabsController.register" id="login-button4" class="button button-positive  button-block button-clear">Or create an account</a>
+            <div class="spacer" style="height: 40px;"></div>
+        </form>
+        <a ui-sref="tabsController.requestResetPassword" id="login-button15" class="button button-positive  button-block button-clear">Lost password?</a>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,15 @@
+<ion-view title="Resend Activation Mail" id="page11">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <form ng-controller="resendActivationMailCtrl" ng-submit="resendActivationMail()" class="list">
+          <label class="item item-input">
+              <span class="input-label">Email</span>
+              <input type="text" id="email" ng-model="email" placeholder="">
+          </label>
+
+          <div ng-show="error" class="assertive">{{error}}</div>
+          <button id="resendActivationMail-button12" class="button button-stable  button-block">Send</button>
+        </form>
+
+        <a ui-sref="tabsController.activateAccount" id="resendActivationMail-button13" class="button button-positive  button-block button-clear">Already have an activation code?</a>
+    </ion-content>
+</ion-view>

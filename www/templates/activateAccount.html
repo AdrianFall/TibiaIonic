@@ -1,0 +1,15 @@
+<ion-view title="Activate Account" id="page12">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <form ng-controller="activateAccountCtrl" ng-submit="activateAccount()" class="list">
+          <div ng-show="message" class="balanced">{{message}}</div>
+          <label class="item item-input">
+              <span class="input-label">Activation Code</span>
+              <input type="text" ng-model="token" id="token" placeholder="">
+          </label>
+
+          <div ng-show="error" class="assertive">{{error}}</div>
+          <button id="activateAccount-button14" class="button button-stable  button-block">Activate</button>
+        </form>
+
+    </ion-content>
+</ion-view>

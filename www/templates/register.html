@@ -1,0 +1,24 @@
+<ion-view title="Register" id="page7">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <form ng-controller="registerCtrl" ng-submit="register()" class="list">
+            <ion-list>
+                <label class="item item-input">
+                    <span class="input-label">Email</span>
+                    <input type="text" id="email" ng-model="email" placeholder="">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Password</span>
+                    <input type="password" id="password" ng-model="password" placeholder="">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Re-Password</span>
+                    <input type="password" id="confirmPassword" ng-model="confirmPassword" placeholder="">
+                </label>
+            </ion-list>
+            <div ng-show="error" class="assertive">{{error}}</div>
+            <div class="spacer" style="height: 40px;"></div>
+            <button id="register-button5" class="button button-stable  button-block">Sign up</button>
+        </form>
+        <a ui-sref="tabsController.resendActivationMail" id="register-button16" class="button button-positive  button-block button-clear">Resend Activation Email</a>
+    </ion-content>
+</ion-view>
