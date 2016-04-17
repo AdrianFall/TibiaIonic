@@ -7,6 +7,7 @@ angular.module('app.controllers', [])
 .controller('loginCtrl', function($scope, $state, $rootScope, AuthenticationService, $ionicLoading) {
   // reset login status
   AuthenticationService.ClearCredentials();
+  $rootScope.authenicated = false;
 
   $scope.login = function() {
     $scope.error = undefined;
@@ -18,7 +19,8 @@ angular.module('app.controllers', [])
         AuthenticationService.SetCredentials($scope.email, $scope.password);
         $rootScope.authenticated = true;
         // TODO
-        //$state.go("mainTabsController.main");
+        //$rootScope.authenicated = true;
+        $state.go("mainTabsController.settings");
         window.alert("Authenticated.");
       } else {
         $scope.error = response.error;
@@ -144,4 +146,16 @@ angular.module('app.controllers', [])
       $ionicLoading.hide();
     })
   }
+})
+
+.controller('huntedListCtrl', function($scope) {
+
+})
+
+.controller('friendListCtrl', function($scope) {
+
+})
+
+.controller('settingsCtrl', function($scope) {
+
 })

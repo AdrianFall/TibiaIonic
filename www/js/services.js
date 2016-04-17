@@ -1,3 +1,4 @@
+var serverUrl = 'http://spring-rest-template.duckdns.org/';
 angular.module('app.services', ['ngCookies'])
 
   .factory('BlankFactory',
@@ -20,7 +21,7 @@ angular.module('app.services', ['ngCookies'])
           var credentials = {
             email : email
           }
-          $http.post('http://spring-rest-template.duckdns.org/resendConfirmationEmail', credentials)
+          $http.post(serverUrl + 'resendConfirmationEmail', credentials)
             .success(function (response) {
               callback(response);
             }).error(function (error, status) {
@@ -60,7 +61,7 @@ angular.module('app.services', ['ngCookies'])
         }
 
         service.ActivateAccount = function(token, callback) {
-          $http.get('http://spring-rest-template.duckdns.org/registrationConfirm', {
+          $http.get(serverUrl + 'registrationConfirm', {
             params: {token: token}
 
           }).success(function (response) {
@@ -116,7 +117,7 @@ angular.module('app.services', ['ngCookies'])
             email : email
           }
 
-          $http.post('http://spring-rest-template.duckdns.org/requestResetPassword', credentials)
+          $http.post(serverUrl + 'requestResetPassword', credentials)
             .success(function (response) {
               callback(response);
             }).error(function (error, status) {
@@ -160,7 +161,7 @@ angular.module('app.services', ['ngCookies'])
             confirmPassword: confirmPassword
           }
 
-          $http.post('http://spring-rest-template.duckdns.org/resetPassword', credentials)
+          $http.post(serverUrl + 'resetPassword', credentials)
             .success(function (response) {
               callback(response);
             }).error(function (error, status) {
@@ -220,7 +221,7 @@ angular.module('app.services', ['ngCookies'])
             password: password,
             confirmPassword: confirmPassword
           }
-          $http.post('http://spring-rest-template.duckdns.org/register', credentials)
+          $http.post(serverUrl + 'register', credentials)
             .success(function (response) {
               callback(response);
             }).error(function(error,status) {
@@ -277,7 +278,7 @@ angular.module('app.services', ['ngCookies'])
           /* Use this for real authentication
            ----------------------------------------------*/
           $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(username + ':' + password);
-          $http.get('http://spring-rest-template.duckdns.org/api/user', {})
+          $http.get(serverUrl + 'api/user', {})
             .success(function (response) {
               callback(response);
             }).error(function(error, status) {

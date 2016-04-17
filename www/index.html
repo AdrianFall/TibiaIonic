@@ -29,7 +29,7 @@
 
   </head>
   <body ng-app="app" animation="slide-left-right-ios7">
-
+  {{authenticated}}
   <div>
     <ion-side-menus enable-menu-with-back-views="false" data-componentid="side-menu21">
         <ion-side-menu-content>
@@ -46,20 +46,52 @@
                 <div class="title">Menu</div>
             </ion-header-bar>
             <ion-content padding="false" class="side-menu-left has-header">
-                <ion-list data-componentid="list4">
+                <ion-list data-componentid="list4" ng-hide="authenticated">
                     <ion-item ui-sref="tabsController.news" menu-close="" data-componentid="list-item1">News</ion-item>
                     <ion-item ui-sref="tabsController.login" menu-close="" data-componentid="list-item2">Login</ion-item>
                     <ion-item menu-close="" ng-controller="requestResetPasswordCtrl" ng-click="openRequestResetPasswordWithHistory()" data-componentid="list-item3">&nbsp; &nbsp;&nbsp;Request Reset Password</ion-item>
                 </ion-list>
-                <ion-list data-componentid="list5">
+                <ion-list data-componentid="list5" ng-hide="authenticated">
                     <ion-item menu-close="" ng-controller="resetPasswordFormCtrl" ng-click="openResetPasswordFormWithHistory()" data-componentid="list-item4">&nbsp; &nbsp;&nbsp;Reset Password Form</ion-item>
                     <ion-item ui-sref="tabsController.register_tab3" menu-close="" data-componentid="list-item5">Register</ion-item>
                     <ion-item menu-close="" ng-controller="resendActivationMailCtrl" ng-click="openResendActivationMailWithHistory()" data-componentid="list-item10">&nbsp; &nbsp;&nbsp;Resend Activation Mail</ion-item>
                     <ion-item menu-close="" ng-controller="activateAccountCtrl" ng-click="openActivateAccountWithHistory()" data-componentid="list-item15">&nbsp; &nbsp;&nbsp;Activate Account</ion-item>
                 </ion-list>
+
+              <ion-list data-componentid="list6" ng-show="authenticated">
+                <ion-item ui-sref="mainTabsController.huntedList" menu-close="" data-componentid="list-item1">Hunted List</ion-item>
+                <ion-item ui-sref="mainTabsController.friendList" menu-close="" data-componentid="list-item2">Friend List</ion-item>
+                <ion-item data-componentid="list-item3">Logout</ion-item>
+              </ion-list>
             </ion-content>
         </ion-side-menu>
     </ion-side-menus>
   </div>
+
+ <!-- <div>
+    <ion-side-menus enable-menu-with-back-views="false" data-componentid="side-menu22">
+      <ion-side-menu-content>
+        <ion-nav-bar class="bar-stable">
+          <ion-nav-back-button></ion-nav-back-button>
+          <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+          </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view></ion-nav-view>
+      </ion-side-menu-content>
+      <ion-side-menu side="left" id="side-menu22">
+        <ion-header-bar class="bar-stable">
+          <div class="title">Menu</div>
+        </ion-header-bar>
+        <ion-content padding="false" class="side-menu-left has-header">
+          <ion-list data-componentid="list1">
+            <ion-item ui-sref="mainTabsController.huntedList" menu-close="" data-componentid="list-item1">Hunted List</ion-item>
+            <ion-item ui-sref="mainTabsController.friendList" menu-close="" data-componentid="list-item2">Friend List</ion-item>
+            <ion-item data-componentid="list-item3">Logout</ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-side-menu>
+    </ion-side-menus>
+  </div>-->
   </body>
 </html>

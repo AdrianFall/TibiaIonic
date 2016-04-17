@@ -137,6 +137,42 @@ angular.module('app.routes', ['ionicUIRouter'])
     }
   })
 
+    .state('mainTabsController.huntedList', {
+      url: '/huntedList',
+      views: {
+        'tab1': {
+          templateUrl: 'templates/huntedList.html',
+          controller: 'huntedListCtrl'
+        }
+      }
+    })
+
+    .state('mainTabsController.friendList', {
+      url: '/friendList',
+      views: {
+        'tab2': {
+          templateUrl: 'templates/friendList.html',
+          controller: 'friendListCtrl'
+        }
+      }
+    })
+
+    .state('mainTabsController.settings', {
+      url: '/settings',
+      views: {
+        'tab3': {
+          templateUrl: 'templates/settings.html',
+          controller: 'settingsCtrl'
+        }
+      }
+    })
+
+    .state('mainTabsController', {
+      url: '/mainPage',
+      templateUrl: 'templates/mainTabsController.html',
+      abstract:true
+    })
+
 $urlRouterProvider.otherwise('/page1/news')
 
 
