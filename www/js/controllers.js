@@ -36,8 +36,9 @@ angular.module('app.controllers', [])
   $scope.register = function() {
     $scope.error = undefined;
     $rootScope.message = undefined;
-    if ($scope.email)
+    if ($scope.email) {
       $scope.email = $scope.email.charAt(0).toLowerCase() + $scope.email.slice(1);
+    }
     RegistrationService.Register($scope.email, $scope.password, $scope.confirmPassword, function(response) {
       if(response.email && $scope.email && response.email == $scope.email) {
         window.alert("Registration Complete, please activate your account");
@@ -51,7 +52,7 @@ angular.module('app.controllers', [])
     });
   }
 })
-
+/**/
 .controller('requestResetPasswordCtrl', function($scope, $state, $rootScope, ResetPasswordService, $ionicLoading) {
   // Builds up the history for ionicHistory (back button functionality)
   $scope.openRequestResetPasswordWithHistory = function() {
