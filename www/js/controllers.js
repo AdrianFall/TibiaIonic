@@ -4,6 +4,21 @@ angular.module('app.controllers', [])
 
 })
 
+.controller('autoCompleteCtrl', function($scope, $rootScope, AutocompleteOnlinePlayersService) {
+
+  $scope.data = { "onlinePlayers" : [], "search" : '' };
+
+  $scope.search = function() {
+
+    AutocompleteOnlinePlayersService.autoComplete($scope.data.search).then(
+      function(matches) {
+        alert('matches' + matches);
+        $scope.data.onlinePlayers = matches;
+      }
+    )
+  }
+})
+
 .controller('loginCtrl', function($scope, $state, $rootScope, AuthenticationService, $ionicLoading) {
   // reset login status
   AuthenticationService.ClearCredentials();
@@ -21,7 +36,6 @@ angular.module('app.controllers', [])
         // TODO
         //$rootScope.authenicated = true;
         $state.go("mainTabsController.settings");
-        window.alert("Authenticated.");
       } else {
         $scope.error = response.error;
         $rootScope.authenticated = false;

@@ -4,13 +4,88 @@ angular.module('app.services', ['ngCookies'])
   .factory('BlankFactory',
     ['$http', '$rootScope',
       function($http, $rootScope, $scope) {
-        var service = {};
+        var service = {
+
+        };
 
         return service;
       }
 
     ]
   )
+
+
+  .factory('AutocompleteOnlinePlayersService',
+    ['$http', '$rootScope', '$q', '$timeout',
+      function($http, $rootScope, $q, $scope, $timeout) {
+        var service =  {}
+
+          service._getOnlineUsers = function() {
+
+            /* obtain the json obj*/
+            $http.get(serverUrl + 'oldera/onlinePlayers', {})
+              .success(function (response) {
+                $rootScope.onlinePlayers = response;
+                console.log('response : ' + JSON.stringify(response));
+                //alert(JSON.stringify($rootScope.onlinePlayers));
+              }).error(function (error, status) {
+              alert('error');
+              errorResponse = {
+                error: '',
+                status: 0
+              };
+            }) // End error
+
+          }
+
+          service.autoComplete = function(searchFilter) {
+
+            // At least 2 chars
+            if (searchFilter.length < 2)
+              return false;
+
+            // alert('service autocomplete')
+            console.log('Searching players for ' + searchFilter);
+
+            console.log('Search filter = ' + searchFilter)
+
+            var deferred = $q.defer();
+
+            if ($rootScope.onlinePlayers == undefined /*|| lastUpdateTime < 3minutes*/) { // TODO
+              service._getOnlineUsers(); // to populate the $rootScope.onlinePlayers
+            }
+            // var onlinePlayers = $rootScope.onlinePlayers;
+            //alert(JSON.stringify($rootScope.onlinePlayers));
+            console.log($rootScope.onlinePlayers);
+            if ($rootScope.onlinePlayers) { // dont bother going in if the GET has not yet finished
+              var matches = $rootScope.onlinePlayers.filter(function (player) {
+                //alert(player[0]);
+
+                // TODO once back-end returns the json array with keys, change back from player[0] to player
+                if (player.name.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) {
+                  console.log(player.name + "," + searchFilter);
+                  return true;
+                }
+              })
+
+              deferred.resolve(matches);
+            }
+
+            /*$timeout(function () {
+
+              deferred.resolve(matches);
+
+            }, 100);*/
+
+            return deferred.promise;
+          }
+
+        return service;
+      }
+
+    ]
+  )
+
 
   .factory('AccountActivationService',
     ['$http', '$rootScope',

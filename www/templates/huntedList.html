@@ -1,3 +1,22 @@
 <ion-view title="Hunted List" id="page2">
-    <ion-content padding="true" class="has-header"></ion-content>
+  <br><br><br>
+  <div ng-controller="autoCompleteCtrl">
+    <i class="icon ion-ios7-search placeholder-icon"></i>
+    <form class="list">
+      <label class="item item-input">
+        <span class="input-label">Input</span>
+        <input type="search" placeholder="Search" ng-change="search()" ng-model="data.search">
+      </label>
+    </form>
+
+    <button class="button button-clear">
+      Cancel
+    </button>
+    </ion-header-bar>
+    <ion-content>
+      <div class="list">
+        <li class="item" ng-repeat="player in data.onlinePlayers">{{player.name}}</li>
+      </div>
+    </ion-content>
+  </div>
 </ion-view>

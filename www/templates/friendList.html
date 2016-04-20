@@ -1,3 +1,442 @@
 <ion-view title="Friend List" id="page3">
-    <ion-content padding="true" class="has-header"></ion-content>
+    <ion-content padding="true" class="has-header">
+      <div class="row">
+        <div class="col col-20">
+          <div class="list">
+            <a class="item item-icon-left" href="#">
+              <i class="icon ion-person-stalker"></i>
+              Hunted List
+              <span class="badge badge-assertive">60</span>
+            </a>
+
+            <a class="item" href="#">
+              <i class="icon"></i>
+              &nbsp; &nbsp; notifications
+            </a>
+            <a class="item" href="#">
+              <i class="icon"></i>
+              &nbsp; &nbsp; delete all
+            </a>
+
+            <a class="item item-icon-left" href="#">
+              <i class="icon ion-person-stalker"></i>
+              Friend List
+              <span class="badge badge-positive">10</span>
+            </a>
+
+            <a class="item" href="#">
+              <i class="icon"></i>
+              &nbsp; &nbsp; placeholder
+            </a>
+            <a class="item" href="#">
+              <i class="icon"></i>
+              &nbsp; &nbsp; placeholder
+            </a>
+
+
+          </div>
+        </div>
+        <div class="col col-80">
+
+          <div class="list">
+            <div class="item item-divider">
+              Add to hunted list
+            </div>
+
+            <div class="item-input-inset">
+              <label class="item-input-wrapper">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input type="search" placeholder="Search">
+              </label>
+              <button class="button button-clear">
+                Cancel &nbsp; &nbsp;
+              </button>
+              <button class="button button-clear">
+                Add &nbsp; &nbsp;
+              </button>
+            </div> <!-- end <div class="item-input-inset"> -->
+            <div class="item item-assertive item-divider">
+              Hunted List
+            </div>
+
+
+
+            <ion-toggle ng-model="shouldShowDelete">
+              Show Delete?
+            </ion-toggle>
+            <ion-list show-delete="shouldShowDelete">
+              <ion-item class="item-icon-left">
+              <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+              <i class="icon ion-person-stalker"></i>
+              Maverick The Sorcerer
+              <span class="badge badge-energized">60 Master Sorcerer</span>
+            </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Erbambling
+                <span class="badge badge-royal">121 Royal Paladin</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Xavero
+                <span class="badge badge-stable">60 Elite Knight</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Ping
+                <span class="badge badge-calm">8 Druid</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Maverick The Sorcerer
+                <span class="badge badge-energized">60 Master Sorcerer</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Erbambling
+                <span class="badge badge-royal">121 Royal Paladin</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Xavero
+                <span class="badge badge-stable">60 Elite Knight</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Ping
+                <span class="badge badge-calm">8 Druid</span>
+              </ion-item>
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Maverick The Sorcerer
+                <span class="badge badge-energized">60 Master Sorcerer</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Erbambling
+                <span class="badge badge-royal">121 Royal Paladin</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Xavero
+                <span class="badge badge-stable">60 Elite Knight</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Ping
+                <span class="badge badge-calm">8 Druid</span>
+              </ion-item>
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Maverick The Sorcerer
+                <span class="badge badge-energized">60 Master Sorcerer</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Erbambling
+                <span class="badge badge-royal">121 Royal Paladin</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Xavero
+                <span class="badge badge-stable">60 Elite Knight</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Ping
+                <span class="badge badge-calm">8 Druid</span>
+              </ion-item>
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Maverick The Sorcerer
+                <span class="badge badge-energized">60 Master Sorcerer</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Erbambling
+                <span class="badge badge-royal">121 Royal Paladin</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Xavero
+                <span class="badge badge-stable">60 Elite Knight</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Ping
+                <span class="badge badge-calm">8 Druid</span>
+              </ion-item>
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Maverick The Sorcerer
+                <span class="badge badge-energized">60 Master Sorcerer</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Erbambling
+                <span class="badge badge-royal">121 Royal Paladin</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Xavero
+                <span class="badge badge-stable">60 Elite Knight</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Ping
+                <span class="badge badge-calm">8 Druid</span>
+              </ion-item>
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Maverick The Sorcerer
+                <span class="badge badge-energized">60 Master Sorcerer</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Erbambling
+                <span class="badge badge-royal">121 Royal Paladin</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Xavero
+                <span class="badge badge-stable">60 Elite Knight</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Ping
+                <span class="badge badge-calm">8 Druid</span>
+              </ion-item>
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Maverick The Sorcerer
+                <span class="badge badge-energized">60 Master Sorcerer</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Erbambling
+                <span class="badge badge-royal">121 Royal Paladin</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Xavero
+                <span class="badge badge-stable">60 Elite Knight</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Ping
+                <span class="badge badge-calm">8 Druid</span>
+              </ion-item>
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Maverick The Sorcerer
+                <span class="badge badge-energized">60 Master Sorcerer</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Erbambling
+                <span class="badge badge-royal">121 Royal Paladin</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Xavero
+                <span class="badge badge-stable">60 Elite Knight</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Ping
+                <span class="badge badge-calm">8 Druid</span>
+              </ion-item>
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Maverick The Sorcerer
+                <span class="badge badge-energized">60 Master Sorcerer</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Erbambling
+                <span class="badge badge-royal">121 Royal Paladin</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Xavero
+                <span class="badge badge-stable">60 Elite Knight</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Ping
+                <span class="badge badge-calm">8 Druid</span>
+              </ion-item>
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Maverick The Sorcerer
+                <span class="badge badge-energized">60 Master Sorcerer</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Erbambling
+                <span class="badge badge-royal">121 Royal Paladin</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Xavero
+                <span class="badge badge-stable">60 Elite Knight</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Ping
+                <span class="badge badge-calm">8 Druid</span>
+              </ion-item>
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Maverick The Sorcerer
+                <span class="badge badge-energized">60 Master Sorcerer</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Erbambling
+                <span class="badge badge-royal">121 Royal Paladin</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Xavero
+                <span class="badge badge-stable">60 Elite Knight</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Ping
+                <span class="badge badge-calm">8 Druid</span>
+              </ion-item>
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Maverick The Sorcerer
+                <span class="badge badge-energized">60 Master Sorcerer</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Erbambling
+                <span class="badge badge-royal">121 Royal Paladin</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Xavero
+                <span class="badge badge-stable">60 Elite Knight</span>
+              </ion-item>
+
+              <ion-item class="item-icon-left">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <i class="icon ion-person-stalker"></i>
+                Ping
+                <span class="badge badge-calm">8 Druid</span>
+              </ion-item>
+            </ion-list>
+
+
+
+
+
+
+
+
+
+
+
+
+          </div> <!-- end <div class="list">-->
+
+
+        </div> <!-- end  <div class="col col-80"> -->
+      </div>
+
+
+
+    </ion-content>
 </ion-view>
