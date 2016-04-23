@@ -1,3 +1,18 @@
 <ion-view title="Settings" id="page4">
-    <ion-content padding="true" class="has-header"></ion-content>
+    <ion-content padding="true" class="has-header">
+      <div class="list">
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Current server
+          </div>
+          <select ng-options="server.name as server.name for server in settings.servers"
+                  ng-model="settings.selectedItem" ng-change="updateCurrentServer()"></select>
+        </label>
+
+
+      </div>
+    </ion-content>
+
+
 </ion-view>

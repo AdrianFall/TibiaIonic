@@ -41,7 +41,6 @@
 
   </head>
   <body ng-app="app" animation="slide-left-right-ios7">
-  {{authenticated}}
   <div>
     <ion-side-menus enable-menu-with-back-views="false" data-componentid="side-menu21">
         <ion-side-menu-content>
@@ -73,7 +72,7 @@
               <ion-list data-componentid="list6" ng-show="authenticated">
                 <ion-item ui-sref="mainTabsController.huntedList" menu-close="" data-componentid="list-item1">Hunted List</ion-item>
                 <ion-item ui-sref="mainTabsController.friendList" menu-close="" data-componentid="list-item2">Friend List</ion-item>
-                <ion-item data-componentid="list-item3">Logout</ion-item>
+                <ion-item ng-controller="indexCtrl"  data-componentid="list-item3" ng-click="logout()">Logout</ion-item>
               </ion-list>
             </ion-content>
         </ion-side-menu>

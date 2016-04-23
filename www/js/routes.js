@@ -144,11 +144,14 @@ angular.module('app.routes', ['ionicUIRouter'])
           templateUrl: 'templates/huntedList.html',
           controller: 'huntedListCtrl'
         }
-      }
+      },
+      authenticate: true
+
     })
 
     .state('mainTabsController.friendList', {
       url: '/friendList',
+      authenticate: true,
       views: {
         'tab2': {
           templateUrl: 'templates/friendList.html',
@@ -159,6 +162,7 @@ angular.module('app.routes', ['ionicUIRouter'])
 
     .state('mainTabsController.settings', {
       url: '/settings',
+      authenticate: true,
       views: {
         'tab3': {
           templateUrl: 'templates/settings.html',

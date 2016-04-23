@@ -14,6 +14,31 @@ angular.module('app.services', ['ngCookies'])
     ]
   )
 
+  .factory('InitService',
+    ['$http', '$rootScope',
+      function($http, $rootScope, $scope) {
+        var service = {};
+
+        // Initialize the global variables for the app
+        service.init = function() {
+          $rootScope.settings = {};
+
+          // Set the list of servers on init
+          $rootScope.settings.servers = [
+            {'name' : 'Oldera'},
+            {'name' : 'Thronia'}
+          ];
+
+          // Set the default rootScope.settings.currentServer on init
+          $rootScope.settings.currentServer = $rootScope.settings.servers[0].name;
+        }
+
+        return service;
+      }
+
+    ]
+  )
+
 
   .factory('AutocompleteOnlinePlayersService',
     ['$http', '$rootScope', '$q', '$timeout',
@@ -27,7 +52,6 @@ angular.module('app.services', ['ngCookies'])
               .success(function (response) {
                 $rootScope.onlinePlayers = response;
                 console.log('response : ' + JSON.stringify(response));
-                //alert(JSON.stringify($rootScope.onlinePlayers));
               }).error(function (error, status) {
               alert('error');
               errorResponse = {
@@ -40,16 +64,18 @@ angular.module('app.services', ['ngCookies'])
 
           service.autoComplete = function(searchFilter) {
 
-            // At least 2 chars
-            if (searchFilter.length < 2)
-              return false;
+            var deferred = $q.defer();
 
-            // alert('service autocomplete')
+            // At least 3 chars
+            if (searchFilter.length < 3) {
+              // Clear the typeahead suggestion (i.e. resolve a null value)
+              deferred.resolve(undefined);
+            }
+
             console.log('Searching players for ' + searchFilter);
 
             console.log('Search filter = ' + searchFilter)
 
-            var deferred = $q.defer();
 
             if ($rootScope.onlinePlayers == undefined /*|| lastUpdateTime < 3minutes*/) { // TODO
               service._getOnlineUsers(); // to populate the $rootScope.onlinePlayers
@@ -59,9 +85,6 @@ angular.module('app.services', ['ngCookies'])
             console.log($rootScope.onlinePlayers);
             if ($rootScope.onlinePlayers) { // dont bother going in if the GET has not yet finished
               var matches = $rootScope.onlinePlayers.filter(function (player) {
-                //alert(player[0]);
-
-                // TODO once back-end returns the json array with keys, change back from player[0] to player
                 if (player.name.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) {
                   console.log(player.name + "," + searchFilter);
                   return true;
@@ -78,7 +101,10 @@ angular.module('app.services', ['ngCookies'])
             }, 100);*/
 
             return deferred.promise;
-          }
+          } // End autoComplete method
+
+        /* TODO decouple the getting of onlinePlayers from the above method, and put it in separate one such that it
+        * sets a global variable to the $rootScope.onlinePlayers along with $rootScope.lastOnlinePlayersUpdateTime */
 
         return service;
       }

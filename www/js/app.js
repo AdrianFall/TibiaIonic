@@ -7,6 +7,16 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngRoute', 'ngCookies'])
 
+  .run(function($rootScope, $state) {
+    $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+      if (toState.authenticate && !$rootScope.authenticated){
+        // User isn’t authenticated
+        $state.transitionTo("tabsController.login");
+        event.preventDefault();
+      }
+    });
+  })
+
   .config(function($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.defaults.useXDomain = true;

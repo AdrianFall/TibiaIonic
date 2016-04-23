@@ -4,22 +4,12 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('autoCompleteCtrl', function($scope, $rootScope, AutocompleteOnlinePlayersService) {
+/*.controller('autoCompleteCtrl', function($scope, $rootScope, AutocompleteOnlinePlayersService) {
 
-  $scope.data = { "onlinePlayers" : [], "search" : '' };
 
-  $scope.search = function() {
+})*/
 
-    AutocompleteOnlinePlayersService.autoComplete($scope.data.search).then(
-      function(matches) {
-        alert('matches' + matches);
-        $scope.data.onlinePlayers = matches;
-      }
-    )
-  }
-})
-
-.controller('loginCtrl', function($scope, $state, $rootScope, AuthenticationService, $ionicLoading) {
+.controller('loginCtrl', function($scope, $state, $rootScope, AuthenticationService, InitService, $ionicLoading) {
   // reset login status
   AuthenticationService.ClearCredentials();
   $rootScope.authenicated = false;
@@ -35,6 +25,7 @@ angular.module('app.controllers', [])
         $rootScope.authenticated = true;
         // TODO
         //$rootScope.authenicated = true;
+        InitService.init();
         $state.go("mainTabsController.settings");
       } else {
         $scope.error = response.error;
@@ -163,14 +154,63 @@ angular.module('app.controllers', [])
   }
 })
 
-.controller('huntedListCtrl', function($scope) {
+.controller('huntedListCtrl', function($scope, $rootScope, AutocompleteOnlinePlayersService) {
+  $scope.data = { "onlinePlayers" : [], "search" : '' };
 
+  $scope.search = function() {
+
+    AutocompleteOnlinePlayersService.autoComplete($scope.data.search).then(
+      function(matches) {
+        $scope.data.onlinePlayers = matches;
+      }
+    )
+  }
+
+  $scope.addToSearch = function(playerName) {
+    alert(playerName);
+    $scope.data.search = playerName;
+    $scope._cleanTypeahead();
+  }
+
+  $scope.cleanSearch = function() {
+    $scope._cleanTypeahead();
+  }
+
+  $scope.addToHuntedList = function() {
+    alert('adding to hunted list : ' + $scope.data.search);
+  }
+
+  $scope._cleanTypeahead = function() {
+    $scope.data.onlinePlayers = undefined;
+  }
 })
 
 .controller('friendListCtrl', function($scope) {
 
 })
 
-.controller('settingsCtrl', function($scope) {
+.controller('settingsCtrl', function($scope, $rootScope) {
 
+  $scope._init = function() {
+    $scope.settings = {};
+
+    $scope.settings.servers = $rootScope.settings.servers;
+
+    // Set the default server on init // TODO add local storage for saving the last serv
+    $scope.settings.selectedItem = $rootScope.settings.servers[0].name;
+
+  } // End _init method
+
+  // Initialize controller
+  $scope._init();
+  $scope.updateCurrentServer = function() {
+    $rootScope.settings.currentServer = $scope.settings.selectedItem;
+  }
+})
+
+.controller('indexCtrl', function($scope, $rootScope, $state) {
+  $scope.logout = function() {
+    $rootScope.authenticated = false;
+    $state.transitionTo("tabsController.news");
+  }
 })
