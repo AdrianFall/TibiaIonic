@@ -167,7 +167,6 @@ angular.module('app.controllers', [])
   }
 
   $scope.addToSearch = function(playerName) {
-    alert(playerName);
     $scope.data.search = playerName;
     $scope._cleanTypeahead();
   }
@@ -178,6 +177,12 @@ angular.module('app.controllers', [])
 
   $scope.addToHuntedList = function() {
     alert('adding to hunted list : ' + $scope.data.search);
+
+
+
+    // Clean
+    $scope._cleanTypeahead();
+    $scope.cleanSearch();
   }
 
   $scope._cleanTypeahead = function() {
@@ -204,7 +209,8 @@ angular.module('app.controllers', [])
   // Initialize controller
   $scope._init();
   $scope.updateCurrentServer = function() {
-    $rootScope.settings.currentServer = $scope.settings.selectedItem;
+    $rootScope.settings.currentServer = {};
+    $rootScope.settings.currentServer.name = $scope.settings.selectedItem;
   }
 })
 

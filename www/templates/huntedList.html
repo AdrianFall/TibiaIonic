@@ -20,7 +20,7 @@
 -->
 
 
-<ion-view title="Hunted List {{settings.currentServer}}" id="page2">
+<ion-view title="Hunted List {{settings.currentServer.name}}" id="page2">
   <ion-content padding="true" class="has-header">
     <div id="sideBarMenu" class="row">
       <div class="col col-20">
@@ -69,6 +69,12 @@
             <label class="item-input-wrapper">
               <i class="icon ion-ios-search placeholder-icon"></i>
               <input type="search" placeholder="Search" ng-change="search()" ng-model="data.search">
+              <a ng-if="data.search != ''"
+                 on-touch="data.search=''">
+
+                <i class="icon ion-ios-close placeholder-icon"></i>
+
+              </a>
             </label>
 
 

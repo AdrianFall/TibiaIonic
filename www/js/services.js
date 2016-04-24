@@ -29,8 +29,10 @@ angular.module('app.services', ['ngCookies'])
             {'name' : 'Thronia'}
           ];
 
+          $rootScope.settings.currentServer = {};
+
           // Set the default rootScope.settings.currentServer on init
-          $rootScope.settings.currentServer = $rootScope.settings.servers[0].name;
+          $rootScope.settings.currentServer.name = $rootScope.settings.servers[0].name;
         }
 
         return service;
@@ -48,9 +50,10 @@ angular.module('app.services', ['ngCookies'])
           service._getOnlineUsers = function() {
 
             /* obtain the json obj*/
-            $http.get(serverUrl + 'oldera/onlinePlayers', {})
+            // TODO in case of two word server names, figure out a new strategy for the http link
+            $http.get(serverUrl + $rootScope.settings.currentServer.name.toLowerCase() + '/onlinePlayers', {})
               .success(function (response) {
-                $rootScope.onlinePlayers = response;
+                $rootScope.settings.currentServer.onlinePlayers = response;
                 console.log('response : ' + JSON.stringify(response));
               }).error(function (error, status) {
               alert('error');
@@ -76,15 +79,20 @@ angular.module('app.services', ['ngCookies'])
 
             console.log('Search filter = ' + searchFilter)
 
-
-            if ($rootScope.onlinePlayers == undefined /*|| lastUpdateTime < 3minutes*/) { // TODO
-              service._getOnlineUsers(); // to populate the $rootScope.onlinePlayers
+            // updateDelay 1 min (to stop getting online list so often)
+            var updateDelay = 60000;
+            var currentTimeInMs = new Date().getTime();
+            var updateOnlineList = ((currentTimeInMs >= $rootScope.settings.currentServer.nextOnlineListUpdateTime) || ($rootScope.settings.currentServer.nextOnlineListUpdateTime == undefined)) ? true : false;
+            console.log($rootScope.settings.currentServer)
+            if (updateOnlineList /*|| $rootScope.settings.currentServer.onlinePlayers == undefined || $rootScope.settings.currentServer.onlinePlayers.name == undefined*/ /*|| lastUpdateTime < 3minutes*/) { // TODO
+              $rootScope.settings.currentServer.nextOnlineListUpdateTime = currentTimeInMs + updateDelay;
+              service._getOnlineUsers(); // to populate the $rootScope.settings.currentServer.onlinePlayers
             }
-            // var onlinePlayers = $rootScope.onlinePlayers;
-            //alert(JSON.stringify($rootScope.onlinePlayers));
-            console.log($rootScope.onlinePlayers);
-            if ($rootScope.onlinePlayers) { // dont bother going in if the GET has not yet finished
-              var matches = $rootScope.onlinePlayers.filter(function (player) {
+            // var onlinePlayers = $rootScope.settings.currentServer.onlinePlayers;
+            //alert(JSON.stringify($rootScope.settings.currentServer.onlinePlayers));
+            console.log($rootScope.settings.currentServer.onlinePlayers);
+            if ($rootScope.settings.currentServer.onlinePlayers) { // dont bother going in if the GET has not yet finished
+              var matches = $rootScope.settings.currentServer.onlinePlayers.filter(function (player) {
                 if (player.name.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) {
                   console.log(player.name + "," + searchFilter);
                   return true;
@@ -104,7 +112,7 @@ angular.module('app.services', ['ngCookies'])
           } // End autoComplete method
 
         /* TODO decouple the getting of onlinePlayers from the above method, and put it in separate one such that it
-        * sets a global variable to the $rootScope.onlinePlayers along with $rootScope.lastOnlinePlayersUpdateTime */
+        * sets a global variable to the $rootScope.settings.currentServer.onlinePlayers along with $rootScope.lastOnlinePlayersUpdateTime */
 
         return service;
       }
