@@ -170,6 +170,8 @@ angular.module('app.controllers', [])
     HuntedListService.getHuntedList().then(
       function(response) {
         alert(JSON.stringify(response));
+        $rootScope.settings.currentServer.huntedList = response;
+
       }
     )
   }

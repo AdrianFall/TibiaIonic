@@ -112,34 +112,13 @@
             Show Delete?
           </ion-toggle>
           <ion-list show-delete="shouldShowDelete">
-            <ion-item class="item-icon-left">
+
+            <ion-item class="item-icon-left" ng-repeat="huntedPlayer in settings.currentServer.huntedList">
               <ion-delete-button class="ion-minus-circled"></ion-delete-button>
               <i class="icon ion-person-stalker"></i>
-              Maverick The Sorcerer
-              <span class="badge badge-energized">60 Master Sorcerer</span>
+              {{huntedPlayer.name}}
+              <span class="badge badge-royal">{{huntedPlayer.level}} {{huntedPlayer.vocation}}</span>
             </ion-item>
-
-            <ion-item class="item-icon-left">
-              <ion-delete-button class="ion-minus-circled"></ion-delete-button>
-              <i class="icon ion-person-stalker"></i>
-              Erbambling
-              <span class="badge badge-royal">121 Royal Paladin</span>
-            </ion-item>
-
-            <ion-item class="item-icon-left">
-              <ion-delete-button class="ion-minus-circled"></ion-delete-button>
-              <i class="icon ion-person-stalker"></i>
-              Xavero
-              <span class="badge badge-stable">60 Elite Knight</span>
-            </ion-item>
-
-            <ion-item class="item-icon-left">
-              <ion-delete-button class="ion-minus-circled"></ion-delete-button>
-              <i class="icon ion-person-stalker"></i>
-              Ping
-              <span class="badge badge-calm">8 Druid</span>
-            </ion-item>
-
         </div> <!-- end <div class="list">-->
 
 
