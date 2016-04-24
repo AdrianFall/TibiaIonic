@@ -4,9 +4,100 @@ angular.module('app.services', ['ngCookies'])
   .factory('BlankFactory',
     ['$http', '$rootScope',
       function($http, $rootScope, $scope) {
-        var service = {
+        var service = {};
 
-        };
+        return service;
+      }
+
+    ]
+  )
+
+  .factory('HuntedListService',
+    ['$http', '$rootScope', '$q',
+      function($http, $rootScope, $q) {
+        var service = {};
+
+
+        service.getHuntedList = function() {
+          var deferred = $q.defer();
+          $http.get(serverUrl + $rootScope.settings.currentServer.name.toLowerCase() + "/getHuntedList")
+            .success(function (response) {
+              deferred.resolve(response);
+            }).error(function(error, status) {
+              errorResponse = {
+                error: '',
+                status: 0
+              };
+
+              errorResponse.error = error.error;
+              errorResponse.status = status;
+
+              deferred.resolve(errorResponse)
+          })
+
+          return deferred.promise;
+        }
+
+        service.addToHuntedList = function(name) {
+          var deferred = $q.defer();
+          console.log('service add to hunted list : ' + name);
+
+
+
+          var json = {
+            playerName : name
+          }
+          $http.post(serverUrl + $rootScope.settings.currentServer.name.toLowerCase() +'/addToHuntedList', json)
+            .success(function (response) {
+              deferred.resolve(response);
+            }).error(function(error,status) {
+            errorResponse = {
+              error: '',
+              status: 0
+            };
+
+            switch (status) {
+              case 404:
+              {
+                errorResponse.error = 'Page Not Found';
+                errorResponse.status = status;
+                deferred.resolve(errorResponse);
+                return;
+              }
+              case 400:
+              {
+                errorResponse.error = error.error;
+                errorResponse.status = status;
+                deferred.resolve(errorResponse);
+                return;
+              }
+              case 401:
+              {
+                errorResponse.error = error.error;
+                errorResponse.status = status;
+                deferred.resolve(errorResponse);
+              }
+              case 520:
+              {
+                errorResponse.error = error.error;
+                errorResponse.status = status;
+                deferred.resolve(errorResponse);
+              }
+              default:
+              {
+                // server probably down
+                errorResponse.error = 'No connection with server';
+                errorResponse.status = 0;
+                deferred.resolve(errorResponse);
+                return;
+              }
+            }
+          })
+
+
+
+          return deferred.promise;
+        }
 
         return service;
       }
@@ -88,9 +179,7 @@ angular.module('app.services', ['ngCookies'])
               $rootScope.settings.currentServer.nextOnlineListUpdateTime = currentTimeInMs + updateDelay;
               service._getOnlineUsers(); // to populate the $rootScope.settings.currentServer.onlinePlayers
             }
-            // var onlinePlayers = $rootScope.settings.currentServer.onlinePlayers;
-            //alert(JSON.stringify($rootScope.settings.currentServer.onlinePlayers));
-            console.log($rootScope.settings.currentServer.onlinePlayers);
+
             if ($rootScope.settings.currentServer.onlinePlayers) { // dont bother going in if the GET has not yet finished
               var matches = $rootScope.settings.currentServer.onlinePlayers.filter(function (player) {
                 if (player.name.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) {

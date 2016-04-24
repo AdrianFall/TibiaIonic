@@ -93,6 +93,11 @@
               </div>
             </ion-content>
           </div>-->
+
+          <div ng-show="error" class="assertive">
+            &nbsp; &nbsp; {{error}}
+          </div>
+
           <div class="list">
             <li class="item" ng-repeat="player in data.onlinePlayers" ng-click="addToSearch(player.name)">{{player.name}}</li>
           </div>

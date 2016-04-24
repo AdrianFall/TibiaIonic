@@ -23,8 +23,7 @@ angular.module('app.controllers', [])
       if(response.email && $scope.email && response.email == $scope.email) {
         AuthenticationService.SetCredentials($scope.email, $scope.password);
         $rootScope.authenticated = true;
-        // TODO
-        //$rootScope.authenicated = true;
+
         InitService.init();
         $state.go("mainTabsController.settings");
       } else {
@@ -154,17 +153,28 @@ angular.module('app.controllers', [])
   }
 })
 
-.controller('huntedListCtrl', function($scope, $rootScope, AutocompleteOnlinePlayersService) {
+.controller('huntedListCtrl', function($scope, $rootScope, AutocompleteOnlinePlayersService, HuntedListService, $ionicLoading) {
   $scope.data = { "onlinePlayers" : [], "search" : '' };
 
   $scope.search = function() {
 
     AutocompleteOnlinePlayersService.autoComplete($scope.data.search).then(
       function(matches) {
+        $scope.error = undefined;
         $scope.data.onlinePlayers = matches;
       }
     )
   }
+
+  $scope.getHuntedList = function() {
+    HuntedListService.getHuntedList().then(
+      function(response) {
+        alert(JSON.stringify(response));
+      }
+    )
+  }
+
+  $scope.getHuntedList();
 
   $scope.addToSearch = function(playerName) {
     $scope.data.search = playerName;
@@ -176,9 +186,18 @@ angular.module('app.controllers', [])
   }
 
   $scope.addToHuntedList = function() {
-    alert('adding to hunted list : ' + $scope.data.search);
+    console.log('adding to hunted list : ' + $scope.data.search);
 
-
+    HuntedListService.addToHuntedList($scope.data.search).then(
+      function(response) {
+        console.log('response : ' + JSON.stringify(response))
+        if (response.error) {
+          $scope.error = response.error;
+        }
+        // TODO
+        $ionicLoading.hide();
+      }
+    )
 
     // Clean
     $scope._cleanTypeahead();
@@ -186,6 +205,7 @@ angular.module('app.controllers', [])
   }
 
   $scope._cleanTypeahead = function() {
+    $scope.error = undefined;
     $scope.data.onlinePlayers = undefined;
   }
 })
