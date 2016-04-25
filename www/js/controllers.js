@@ -156,6 +156,13 @@ angular.module('app.controllers', [])
 .controller('huntedListCtrl', function($scope, $rootScope, AutocompleteOnlinePlayersService, HuntedListService, $ionicLoading) {
   $scope.data = { "onlinePlayers" : [], "search" : '' };
 
+  $scope.$on('$ionicView.enter', function (viewInfo, state) {
+    console.log('CTRL - $ionicView.enter', viewInfo, state);
+    // get the hunted list on enter
+    // TODO consider adding some delay
+    $scope.getHuntedList();
+  });
+
   $scope.search = function() {
 
     AutocompleteOnlinePlayersService.autoComplete($scope.data.search).then(
@@ -175,9 +182,6 @@ angular.module('app.controllers', [])
       }
     )
   }
-
-  // get the hunted list on controller init
-  $scope.getHuntedList();
 
   $scope.addToSearch = function(playerName) {
     $scope.data.search = playerName;
