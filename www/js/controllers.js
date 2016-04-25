@@ -169,13 +169,14 @@ angular.module('app.controllers', [])
   $scope.getHuntedList = function() {
     HuntedListService.getHuntedList().then(
       function(response) {
-        alert(JSON.stringify(response));
+        console.log(JSON.stringify(response));
         $rootScope.settings.currentServer.huntedList = response;
 
       }
     )
   }
 
+  // get the hunted list on controller init
   $scope.getHuntedList();
 
   $scope.addToSearch = function(playerName) {

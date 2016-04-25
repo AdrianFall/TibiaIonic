@@ -107,18 +107,51 @@
           </div>
 
 
+          <ion-list>
 
-          <ion-toggle ng-model="shouldShowDelete">
-            Show Delete?
-          </ion-toggle>
-          <ion-list show-delete="shouldShowDelete">
+            <ion-item ng-repeat="huntedPlayer in settings.currentServer.huntedList">
+              <div class="row">
+                <div class="col col-10">
+                  <i class="icon icon-larger ion-person-stalker"></i>
+                </div>
 
-            <ion-item class="item-icon-left" ng-repeat="huntedPlayer in settings.currentServer.huntedList">
-              <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <div class="col col-40">
+                  {{huntedPlayer.name}}
+                </div>
+
+                <div class="col col-20">
+                  {{huntedPlayer.level}} {{huntedPlayer.vocation}}
+                </div>
+
+                <div class="col col-10">
+                  <ion-checkbox class="checkbox-icon checkbox-assertive" ng-model="isChecked"></ion-checkbox>
+                </div>
+
+                <div class="col col-20">
+                  <button class="button button-clear">
+                    <i class="icon ion-trash-a"></i>
+                  </button>
+                </div>
+
+              </div>
+            </ion-item>
+<!--
+
+            <ion-item class="item-icon-left item-button-right item-checkbox-right" ng-repeat="huntedPlayer in settings.currentServer.huntedList">
               <i class="icon ion-person-stalker"></i>
               {{huntedPlayer.name}}
+              <button class="button button-clear">
+                <i class="icon ion-trash-a"></i>
+              </button>
+              <i class="badge-container"></i>
+              <ion-checkbox class="checkbox-icon checkbox-assertive" ng-model="isChecked"></ion-checkbox>
               <span class="badge badge-royal">{{huntedPlayer.level}} {{huntedPlayer.vocation}}</span>
             </ion-item>
+-->
+
+
+
+
         </div> <!-- end <div class="list">-->
 
 
