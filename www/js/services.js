@@ -18,6 +18,7 @@ angular.module('app.services', ['ngCookies'])
         var service = {};
 
 
+
         service.getHuntedList = function() {
           var deferred = $q.defer();
           $http.get(serverUrl + $rootScope.settings.currentServer.name.toLowerCase() + "/getHuntedList")
@@ -34,6 +35,59 @@ angular.module('app.services', ['ngCookies'])
 
               deferred.resolve(errorResponse)
           })
+
+          return deferred.promise;
+        }
+
+        service.removeHuntedPlayers = function(huntedPlayersArr) {
+          var deferred = $q.defer();
+
+          $http.post(serverUrl + $rootScope.settings.currentServer.name.toLowerCase() +'/removeHuntedPlayers', angular.toJson(huntedPlayersArr))
+            .success(function (response) {
+              deferred.resolve(response);
+            }).error(function(error,status) {
+            errorResponse = {
+              error: '',
+              status: 0
+            };
+
+            switch (status) {
+              case 404:
+              {
+                errorResponse.error = 'Page Not Found';
+                errorResponse.status = status;
+                deferred.resolve(errorResponse);
+                return;
+              }
+              case 400:
+              {
+                errorResponse.error = error.error;
+                errorResponse.status = status;
+                deferred.resolve(errorResponse);
+                return;
+              }
+              case 401:
+              {
+                errorResponse.error = error.error;
+                errorResponse.status = status;
+                deferred.resolve(errorResponse);
+              }
+              case 520:
+              {
+                errorResponse.error = error.error;
+                errorResponse.status = status;
+                deferred.resolve(errorResponse);
+              }
+              default:
+              {
+                errorResponse.error = 'Unknown error';
+                errorResponse.status = 0;
+                deferred.resolve(errorResponse);
+                return;
+              }
+            }
+          })
+
 
           return deferred.promise;
         }
@@ -85,8 +139,7 @@ angular.module('app.services', ['ngCookies'])
               }
               default:
               {
-                // server probably down
-                errorResponse.error = 'No connection with server';
+                errorResponse.error = 'Unknown error';
                 errorResponse.status = 0;
                 deferred.resolve(errorResponse);
                 return;
@@ -248,8 +301,7 @@ angular.module('app.services', ['ngCookies'])
               }
               default:
               {
-                // server probably down
-                errorResponse.error = 'No connection with server';
+                errorResponse.error = 'Unknown error';
                 errorResponse.status = 0;
                 callback(errorResponse);
                 return;
@@ -288,8 +340,7 @@ angular.module('app.services', ['ngCookies'])
               }
               default:
               {
-                // server probably down
-                errorResponse.error = 'No connection with server';
+                errorResponse.error = 'Unknown error';
                 errorResponse.status = 0;
                 callback(errorResponse);
                 return;
@@ -342,8 +393,7 @@ angular.module('app.services', ['ngCookies'])
               }
               default:
               {
-                // server probably down
-                errorResponse.error = 'No connection with server';
+                errorResponse.error = 'Unknown error';
                 errorResponse.status = 0;
                 callback(errorResponse);
                 return;
@@ -390,8 +440,7 @@ angular.module('app.services', ['ngCookies'])
               }
               default:
               {
-                // server probably down
-                errorResponse.error = 'No connection with server';
+                errorResponse.error = 'Unknown error';
                 errorResponse.status = 0;
                 callback(errorResponse);
                 return;
@@ -450,8 +499,7 @@ angular.module('app.services', ['ngCookies'])
                 }
                 default:
                 {
-                  // server probably down
-                  errorResponse.error = 'No connection with server';
+                  errorResponse.error = 'Unknown error';
                   errorResponse.status = 0;
                   callback(errorResponse);
                   return;
@@ -501,8 +549,7 @@ angular.module('app.services', ['ngCookies'])
               }
               default:
               {
-                // server probably down
-                errorResponse.error = 'No connection with server';
+                errorResponse.error = 'Unknown error';
                 errorResponse.status = 0;
                 callback(errorResponse);
                 return;

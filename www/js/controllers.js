@@ -183,6 +183,28 @@ angular.module('app.controllers', [])
     )
   }
 
+  $scope.removeHuntedPlayer = function(huntedPlayerName) {
+    var currentServerName = $rootScope.settings.currentServer.name;
+    /*console.log('Controller -> start of removeHuntedPlayer')*/
+    console.log('RemovingHuntedPlayer with name : ' + huntedPlayerName + ", on server : " + currentServerName);
+
+    var huntedPlayers = [{
+      huntedPlayerName:huntedPlayerName,
+      serverName:currentServerName
+    },]
+
+    var json = { huntedPlayers: huntedPlayers}
+
+
+    console.log('Passing huntedPlayers : ' + JSON.stringify(json))
+    HuntedListService.removeHuntedPlayers(json).then(
+      function(response) {
+        console.log('RemoveHuntedPlayers response : ' + JSON.stringify(response));
+      }
+    )
+
+  }
+
   $scope.addToSearch = function(playerName) {
     $scope.data.search = playerName;
     $scope._cleanTypeahead();
