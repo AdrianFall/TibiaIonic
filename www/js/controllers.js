@@ -153,7 +153,7 @@ angular.module('app.controllers', [])
   }
 })
 
-.controller('huntedListCtrl', function($scope, $rootScope, AutocompleteOnlinePlayersService, HuntedListService, $ionicLoading) {
+.controller('huntedListCtrl', function($scope, $rootScope, AutocompleteOnlinePlayersService, HuntedListService, $ionicLoading, $ionicPopup) {
   $scope.data = { "onlinePlayers" : [], "search" : '' };
 
   $scope.$on('$ionicView.enter', function (viewInfo, state) {
@@ -162,6 +162,119 @@ angular.module('app.controllers', [])
     // TODO consider adding some delay
     $scope.getHuntedList();
   });
+
+  $scope.huntedPlayersSelection = {};
+  $scope.isAllHuntedPlayersSelected = false;
+
+  $scope.selectAllHuntedPlayers = function() {
+    //check if all selected or not
+    if ($scope.isAllHuntedPlayersSelected === false) {
+      //set all row selected
+      angular.forEach($rootScope.settings.currentServer.huntedList, function(row, index) {
+        $scope.huntedPlayersSelection[index] = true;
+      });
+      $scope.isAllHuntedPlayersSelected = true;
+    } else {
+      //set all row unselected
+      $scope._setAllRowUnselected();
+    }
+  }
+
+  $scope._setAllRowUnselected = function() {
+    angular.forEach($rootScope.settings.currentServer.huntedList, function(row, index) {
+      $scope.huntedPlayersSelection[index] = false;
+    });
+    $scope.isAllHuntedPlayersSelected = false;
+  }
+
+  $scope.removeSelectedHuntedPlayers = function() {
+
+    var currentServerName = $rootScope.settings.currentServer.name;
+
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Remove Hunted Players',
+      template: 'Are you sure you want to remove this selection of players?'
+    });
+
+    confirmPopup.then(function(res) {
+      if(res) {
+        console.log('RemovingHuntedPlayers on server : ' + currentServerName);
+
+        // For the POST json file
+        var huntedPlayers = [];
+
+        // Index in the huntedPlayersSelection, so it can be removed on success (removeHuntedPlayers(..).then)
+        var huntedPlayersIndex = [];
+
+        //start from last index because starting from first index cause shifting
+        //in the array because of array.splice()
+        for (var i = $rootScope.settings.currentServer.huntedList.length; i >= 0; i--) {
+          if ($scope.huntedPlayersSelection[i]) {
+
+
+            huntedPlayersIndex.push(i);
+
+            huntedPlayers.push({
+              huntedPlayerName:$rootScope.settings.currentServer.huntedList[i].name,
+              serverName:currentServerName
+            })
+
+            // huntedPlayersToDelete.push($rootScope.settings.currentServer.huntedList[i].id);
+          }
+        } // End iterating over the currentServer.huntedList
+
+        if (huntedPlayers.length < 1) {
+          console.log('Nothing to delete in huntedPlayers');
+          return;
+        }
+
+
+        var json = { huntedPlayers: huntedPlayers}
+
+
+        console.log('Passing huntedPlayers : ' + JSON.stringify(json))
+        HuntedListService.removeHuntedPlayers(json).then(
+          function(response) {
+            console.log('RemoveHuntedPlayers response : ' + JSON.stringify(response));
+
+            console.log('response.numberOfDeleted: ' + response.numberOfDeleted + ' huntedPlayers.length: ' + huntedPlayers.length);
+            if(response && response.numberOfDeleted && response.numberOfDeleted == huntedPlayers.length) {
+
+              console.log('Removing selection of hunted players of length: ' + huntedPlayersIndex.length);
+
+              // Iterate through the huntedPlayersIndex and remove the players
+              //start from last index because starting from first index cause shifting
+              //in the array because of array.splice()
+              /*for (var i = huntedPlayersIndex.length; i >= 0; i--) {
+                $rootScope.settings.currentServer.huntedList.splice(huntedPlayersIndex[i], 1);
+                //delete from the selection
+                delete $scope.huntedPlayersSelection[huntedPlayersIndex[i]];
+
+                // Deselect all
+                $scope._setAllRowUnselected();
+              }*/
+
+              for (var i = 0; i < huntedPlayersIndex.length; i++) {
+                $rootScope.settings.currentServer.huntedList.splice(huntedPlayersIndex[i], 1);
+                // Delete from the selection
+
+                delete $scope.huntedPlayersSelection[huntedPlayersIndex[i]];
+              }
+
+              console.log('Removed the selection of hunted players');
+
+            } else {
+              console.log('Something went wrong when deleting the selection of hunted players');
+            }
+
+          }
+        )
+      } else {
+        console.log('You are not sure');
+      }
+    });
+
+  }
 
   $scope.search = function() {
 
@@ -186,22 +299,37 @@ angular.module('app.controllers', [])
   $scope.removeHuntedPlayer = function(huntedPlayerName) {
     var currentServerName = $rootScope.settings.currentServer.name;
     /*console.log('Controller -> start of removeHuntedPlayer')*/
-    console.log('RemovingHuntedPlayer with name : ' + huntedPlayerName + ", on server : " + currentServerName);
-
-    var huntedPlayers = [{
-      huntedPlayerName:huntedPlayerName,
-      serverName:currentServerName
-    },]
-
-    var json = { huntedPlayers: huntedPlayers}
 
 
-    console.log('Passing huntedPlayers : ' + JSON.stringify(json))
-    HuntedListService.removeHuntedPlayers(json).then(
-      function(response) {
-        console.log('RemoveHuntedPlayers response : ' + JSON.stringify(response));
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Remove Hunted Player',
+      template: 'Are you sure you want to remove this player?'
+    });
+
+    confirmPopup.then(function(res) {
+      if(res) {
+        console.log('RemovingHuntedPlayer with name : ' + huntedPlayerName + ", on server : " + currentServerName);
+
+        var huntedPlayers = [{
+          huntedPlayerName:huntedPlayerName,
+          serverName:currentServerName
+        },]
+
+        var json = { huntedPlayers: huntedPlayers}
+
+
+        console.log('Passing huntedPlayers : ' + JSON.stringify(json))
+        HuntedListService.removeHuntedPlayers(json).then(
+          function(response) {
+            console.log('RemoveHuntedPlayer response : ' + JSON.stringify(response));
+          }
+        )
+      } else {
+        console.log('You are not sure');
       }
-    )
+    });
+
+
 
   }
 
@@ -219,7 +347,22 @@ angular.module('app.controllers', [])
 
     HuntedListService.addToHuntedList($scope.data.search).then(
       function(response) {
-        console.log('response : ' + JSON.stringify(response))
+        if (response && response.name) {
+          console.log('response : ' + JSON.stringify(response))
+          // Add to the rootscope huntedlist
+          //"vocation":"Elder Druid","level":49,"name":"Sir Punxeon","isOnline":true,"id":560
+          $rootScope.settings.currentServer.huntedList.push({
+            vocation: response.vocation,
+            level: response.level,
+            name: response.name,
+            isOnline: response.isOnline,
+            id: response.id
+          })
+
+          // Remove from the search data
+          $scope.data.search = "";
+        }
+        // And
         if (response.error) {
           $scope.error = response.error;
         }
