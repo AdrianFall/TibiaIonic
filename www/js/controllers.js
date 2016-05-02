@@ -24,8 +24,10 @@ angular.module('app.controllers', [])
         AuthenticationService.SetCredentials($scope.email, $scope.password);
         $rootScope.authenticated = true;
 
-        InitService.init();
-        $state.go("mainTabsController.settings");
+        InitService.init().then(function() {
+          $state.go("mainTabsController.settings");
+        });
+
       } else {
         $scope.error = response.error;
         $rootScope.authenticated = false;
@@ -257,9 +259,16 @@ angular.module('app.controllers', [])
               for (var i = 0; i < huntedPlayersIndex.length; i++) {
                 $rootScope.settings.currentServer.huntedList.splice(huntedPlayersIndex[i], 1);
                 // Delete from the selection
-
                 delete $scope.huntedPlayersSelection[huntedPlayersIndex[i]];
               }
+
+              console.log('Deselecting "select all" checkbox');
+
+
+              $scope.isAllHuntedPlayersSelected = false;
+
+
+
 
               console.log('Removed the selection of hunted players');
 
@@ -322,6 +331,36 @@ angular.module('app.controllers', [])
         HuntedListService.removeHuntedPlayers(json).then(
           function(response) {
             console.log('RemoveHuntedPlayer response : ' + JSON.stringify(response));
+            if (response && response.numberOfDeleted && response.numberOfDeleted == 1) {
+
+              //start from last index because starting from first index cause shifting
+              //in the array because of array.splice()
+              for (var i = $rootScope.settings.currentServer.huntedList.length-1; i >= 0; i--) {
+                if ($rootScope.settings.currentServer.huntedList[i].name == huntedPlayerName) {
+                  $rootScope.settings.currentServer.huntedList.splice(i, 1);
+                  // Delete from the selection
+
+                  delete $scope.huntedPlayersSelection[i];
+
+                  // Set all rows unselected just in case
+                  $scope._setAllRowUnselected();
+
+                }
+              } // End iterating over the currentServer.huntedList
+
+
+
+
+
+
+
+
+
+
+
+
+              console.log('Removed Hunter Player: ' + huntedPlayerName);
+            }
           }
         )
       } else {

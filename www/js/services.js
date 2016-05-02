@@ -21,7 +21,7 @@ angular.module('app.services', ['ngCookies'])
 
         service.getHuntedList = function() {
           var deferred = $q.defer();
-          $http.get(serverUrl + $rootScope.settings.currentServer.name.toLowerCase() + "/getHuntedList")
+          $http.get(serverUrl + $rootScope.settings.currentServer.name + "/getHuntedList")
             .success(function (response) {
               deferred.resolve(response);
             }).error(function(error, status) {
@@ -42,7 +42,7 @@ angular.module('app.services', ['ngCookies'])
         service.removeHuntedPlayers = function(huntedPlayersArr) {
           var deferred = $q.defer();
 
-          $http.post(serverUrl + $rootScope.settings.currentServer.name.toLowerCase() +'/removeHuntedPlayers', angular.toJson(huntedPlayersArr))
+          $http.post(serverUrl + $rootScope.settings.currentServer.name +'/removeHuntedPlayers', angular.toJson(huntedPlayersArr))
             .success(function (response) {
               deferred.resolve(response);
             }).error(function(error,status) {
@@ -101,7 +101,7 @@ angular.module('app.services', ['ngCookies'])
           var json = {
             playerName : name
           }
-          $http.post(serverUrl + $rootScope.settings.currentServer.name.toLowerCase() +'/addToHuntedList', json)
+          $http.post(serverUrl + $rootScope.settings.currentServer.name +'/addToHuntedList', json)
             .success(function (response) {
               deferred.resolve(response);
             }).error(function(error,status) {
@@ -159,24 +159,45 @@ angular.module('app.services', ['ngCookies'])
   )
 
   .factory('InitService',
-    ['$http', '$rootScope',
-      function($http, $rootScope, $scope) {
+    ['$http', '$rootScope', '$q',
+      function($http, $rootScope, $q) {
         var service = {};
 
         // Initialize the global variables for the app
         service.init = function() {
+          var deferred = $q.defer();
           $rootScope.settings = {};
+          $rootScope.settings.servers = [];
 
-          // Set the list of servers on init
-          $rootScope.settings.servers = [
+          // Obtain the list of servers
+          $http.get(serverUrl + '/getServers', {})
+            .success(function (response) {
+              console.log('servers : ' + JSON.stringify(response));
+              $rootScope.settings.servers = response;
+
+              console.log('$rootScope.settings.servers = ' + JSON.stringify($rootScope.settings.servers[0]));
+
+              $rootScope.settings.currentServer = {};
+
+              // Set the default rootScope.settings.currentServer on init
+              $rootScope.settings.currentServer.name = $rootScope.settings.servers[0].name;
+              deferred.resolve(undefined);
+
+            }).error(function (error, status) {
+            alert('error');
+            errorResponse = {
+              error: '',
+              status: 0
+            };
+          }) // End error
+
+          // Hardcode the list of servers on init
+          /*$rootScope.settings.servers = [
             {'name' : 'Oldera'},
             {'name' : 'Thronia'}
-          ];
+          ];*/
 
-          $rootScope.settings.currentServer = {};
-
-          // Set the default rootScope.settings.currentServer on init
-          $rootScope.settings.currentServer.name = $rootScope.settings.servers[0].name;
+          return deferred.promise;
         }
 
         return service;
@@ -195,7 +216,7 @@ angular.module('app.services', ['ngCookies'])
 
             /* obtain the json obj*/
             // TODO in case of two word server names, figure out a new strategy for the http link
-            $http.get(serverUrl + $rootScope.settings.currentServer.name.toLowerCase() + '/onlinePlayers', {})
+            $http.get(serverUrl + $rootScope.settings.currentServer.name + '/onlinePlayers', {})
               .success(function (response) {
                 $rootScope.settings.currentServer.onlinePlayers = response;
                 console.log('response : ' + JSON.stringify(response));

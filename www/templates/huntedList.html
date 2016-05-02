@@ -108,8 +108,12 @@
                 Hunted List
               </div>
 
-              <div class="col col-30">
-                <input name="btSelectAll" ng-click="selectAllHuntedPlayers()" ng-model="isAllHuntedPlayersSelected" type="checkbox">
+              <div class="col col-10">
+                <ion-checkbox class="checkbox-icon checkbox-balanced" ng-click="selectAllHuntedPlayers()" ng-checked="isAllHuntedPlayersSelected"></ion-checkbox>
+              </div>
+
+              <div class="col col-20">
+                <!--<input name="btSelectAll" ng-click="selectAllHuntedPlayers()" ng-model="isAllHuntedPlayersSelected" type="checkbox">-->
                 <button id="deleteAll" ng-click="removeSelectedHuntedPlayers()" class="btn btn-danger">
                   <i class="glyphicon glyphicon-remove"></i> Delete All
                 </button>
